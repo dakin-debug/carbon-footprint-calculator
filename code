@@ -1,0 +1,42 @@
+# carbon-footprint-calculator
+
+print("Welcome to the Carbon Footprint Calculator!")
+
+# Ask user for inputs
+miles = float(input("How many miles do you drive per week? "))
+fuel_eff = float(input("What is your car's fuel efficiency (miles per gallon)? "))
+kwh = float(input("How many kWh of electricity do you use per month? "))
+print("What type of diet do you follow?")
+print("Options: meat / vegetarian / vegan")
+diet = input("Enter your diet type: ").lower()
+
+# Calculate yearly values
+yearly_miles = miles * 52
+yearly_kwh = kwh * 12
+
+# Transportation carbon footprint
+gallons_used = yearly_miles / fuel_eff
+transport_CO2 = gallons_used * 8.89  # 1 gallon petrol ≈ 8.89 kg CO₂
+
+# Electricity carbon footprint
+electricity_CO2 = yearly_kwh * 0.475  # 0.475 kg CO₂ per kWh (global average)
+
+# Diet carbon footprint
+if diet == "meat":
+    diet_CO2 = 3.3 * 365
+elif diet == "vegetarian":
+    diet_CO2 = 1.7 * 365
+elif diet == "vegan":
+    diet_CO2 = 1.5 * 365
+else:
+    diet_CO2 = 0  # unknown diet type
+
+# Total carbon footprint
+total_CO2 = transport_CO2 + electricity_CO2 + diet_CO2
+
+# Show result
+print("\nYour estimated yearly carbon footprint is:")
+print("From transportation:", round(transport_CO2, 2), "kg CO₂")
+print("From electricity:", round(electricity_CO2, 2), "kg CO₂")
+print("From diet:", round(diet_CO2, 2), "kg CO₂")
+print("Total:", round(total_CO2, 2), "kg CO₂ per year")
